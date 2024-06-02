@@ -1,0 +1,31 @@
+#include "timer.h"
+
+void Timer_Init(void){
+	SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
+	PIT->MCR = 0x00U;
+	PIT->CHANNEL[0].LDVAL = 0x00d551f3U;
+	PIT->CHANNEL[0].TCTRL = 0x00U;
+	PIT->CHANNEL[0].TFLG = PIT_TFLG_TIF_MASK;
+	
+	NVIC_SetPriority(22,2);
+	NVIC_EnableIRQ(22);
+	
+	PIT->CHANNEL[0].TCTRL = (PIT_TCTRL_TIE_MASK|PIT_TCTRL_TEN_MASK);
+	
+	PIT->CHANNEL[1].LDVAL = 0x01aaa3e8U;
+	PIT->CHANNEL[1].TCTRL = 0x00U;
+	PIT->CHANNEL[1].TFLG = PIT_TFLG_TIF_MASK;
+	
+	PIT->CHANNEL[1].TCTRL = (PIT_TCTRL_TIE_MASK|PIT_TCTRL_TEN_MASK);
+}
+
+void PIT_IRQHandler(){
+	if (PIT->CHANNEL[0].TFLG & (uint32_t)1u){
+				PIT->CHANNEL[0].TFLG |= 1;
+				PTE->PDOR ^= (1u << 29);
+	}		
+	else if (PIT->CHANNEL[1].TFLG & (uint32_t)1){
+		PIT->CHANNEL[1].TFLG |= 1;
+		PTD->PDOR ^= (1u << 5);
+	}
+}
