@@ -12,20 +12,9 @@ void Timer_Init(void){
 	
 	PIT->CHANNEL[0].TCTRL = (PIT_TCTRL_TIE_MASK|PIT_TCTRL_TEN_MASK);
 	
-	PIT->CHANNEL[1].LDVAL = 0x01aaa3e8U;
+	PIT->CHANNEL[1].LDVAL = 0x006aa8afU;
 	PIT->CHANNEL[1].TCTRL = 0x00U;
 	PIT->CHANNEL[1].TFLG = PIT_TFLG_TIF_MASK;
 	
 	PIT->CHANNEL[1].TCTRL = (PIT_TCTRL_TIE_MASK|PIT_TCTRL_TEN_MASK);
-}
-
-void PIT_IRQHandler(){
-	if (PIT->CHANNEL[0].TFLG & (uint32_t)1u){
-				PIT->CHANNEL[0].TFLG |= 1;
-				PTE->PDOR ^= (1u << 29);
-	}		
-	else if (PIT->CHANNEL[1].TFLG & (uint32_t)1){
-		PIT->CHANNEL[1].TFLG |= 1;
-		PTD->PDOR ^= (1u << 5);
-	}
 }

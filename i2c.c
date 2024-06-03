@@ -10,7 +10,6 @@ void I2C_Init(){
 	I2C0->F = 0x1F;
 	
 	I2C0->C1 = 0x80;
-	//I2C0->C1 |= I2C_C1_MST_MASK;
 }
 
 error_code I2C_Transmit(uint8_t address, uint8_t reg, uint8_t data){
@@ -33,6 +32,9 @@ error_code I2C_Transmit(uint8_t address, uint8_t reg, uint8_t data){
 	}
 	I2C0->C1 &= ~I2C_C1_MST_MASK;
 	I2C0->C1 &= ~I2C_C1_TX_MASK;
+	
+	for(int i=0; i<1000; i++);
+	
 	return I2C_OK;
 }
 error_code I2C_Receive(uint8_t address, uint8_t reg, uint8_t * data){
@@ -67,6 +69,8 @@ error_code I2C_Receive(uint8_t address, uint8_t reg, uint8_t * data){
 	I2C0->C1 &= ~I2C_C1_MST_MASK;
 	I2C0->C1 &= ~I2C_C1_TX_MASK;
 	*data = I2C0->D;
+	
+	for(int i=0; i<1000; i++);
 	
 	return I2C_OK;
 }

@@ -6,3 +6,9 @@
 .\objects\main.o: E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h
 .\objects\main.o: E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h
 .\objects\main.o: .\RTE\Device\MKL46Z256VMC4\system_MKL46Z4.h
+.\objects\main.o: i2c.h
+.\objects\main.o: timer.h
+.\objects\main.o: LCD.h
+.\objects\main.o: uart.h
+.\objects\main.o: E:\KeilVision\ARM\ARM_compiler_5.06v7\Bin\..\include\stdio.h
+.\objects\main.o: E:\KeilVision\ARM\ARM_compiler_5.06v7\Bin\..\include\string.h

@@ -1,6 +1,6 @@
 Dependencies for Project 'falling-detection', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARM_compiler_5.06v7
-F (.\main.c)(0x665C874F)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x665D732D)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\RTE\Device\MKL46Z256VMC4\MKL46Z4.h)(0x65D6B74C)
 I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F58EE)
 I (E:\KeilVision\ARM\ARM_compiler_5.06v7\include\stdint.h)(0x5E8E4AD2)
@@ -8,7 +8,13 @@ I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F58EE)
 I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F58EE)
 I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h)(0x626F58EE)
 I (.\RTE\Device\MKL46Z256VMC4\system_MKL46Z4.h)(0x65D6B74C)
-F (.\i2c.c)(0x6655EF0B)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\i2c.o --omf_browse .\objects\i2c.crf --depend .\objects\i2c.d)
+I (i2c.h)(0x66558F12)
+I (timer.h)(0x6629C4C0)
+I (LCD.h)(0x66572D5B)
+I (uart.h)(0x6649B0AB)
+I (E:\KeilVision\ARM\ARM_compiler_5.06v7\include\stdio.h)(0x5E8E4AD2)
+I (E:\KeilVision\ARM\ARM_compiler_5.06v7\include\string.h)(0x5E8E4AD2)
+F (.\i2c.c)(0x665D72E1)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\i2c.o --omf_browse .\objects\i2c.crf --depend .\objects\i2c.d)
 I (i2c.h)(0x66558F12)
 I (.\RTE\Device\MKL46Z256VMC4\MKL46Z4.h)(0x65D6B74C)
 I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F58EE)
@@ -28,7 +34,7 @@ I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h)(0x626F58EE)
 I (.\RTE\Device\MKL46Z256VMC4\system_MKL46Z4.h)(0x65D6B74C)
 I (LCD.h)(0x66572D5B)
 F (.\LCD.h)(0x66572D5B)()
-F (.\timer.c)(0x6633020B)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
+F (.\timer.c)(0x665D69DD)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
 I (timer.h)(0x6629C4C0)
 I (.\RTE\Device\MKL46Z256VMC4\MKL46Z4.h)(0x65D6B74C)
 I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F58EE)
