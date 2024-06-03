@@ -84,6 +84,9 @@ const volatile uint8_t DEFG[16]= {0xBB,0x00,0x77,0x55,0xCC,0xDD,0xFF,0x00,0xFF,0
 const volatile uint8_t digit_ABC[4] = {11,38,8,17}; //WF8B indexes to refer to set ./:, C, B, A segments in 1st, 2nd, 3rd and 4th digit
 const volatile uint8_t digit_DEFG[4]= {10,53,7,37}; //WF8B indexes to refer to set D, E, G, F segments in 1st, 2nd, 3rd and 4th digit
 
+const volatile uint8_t FALL_ABC[3] = {0x88, 0xEE, 0x00};
+const volatile uint8_t FALL_DEFG[3] = {0xEE, 0xEE, 0xBB};
+	
 uint8_t sLCD_Print(uint8_t digit, uint8_t number) //digit 0 - less significant, digit 3 - most significant
 {
 	if(digit>3 && number>15) return 1u; //error invalid both inputs
@@ -121,39 +124,14 @@ void sLCD_Clear(void)
 	}
 }
 
-uint8_t sLCD_Dec_Print(uint16_t value)
-{
-	if(value>9999) return 1;
-	uint8_t tenpowers[4]={0,0,0,0};
-	
-	while(value>=1000)
-	{
-		tenpowers[3]++;
-		value=value-1000;
-	}
-	while(value>=100)
-	 {
-		tenpowers[2]++;
-		value=value-100;
-	}
-	 while(value>=10)
-	 {
-		tenpowers[1]++;
-		value=value-10;
-	}
-	 tenpowers[0]=value;
-	 
-	for(uint8_t i=0;i<4;i++)
-	{
-		sLCD_Print(i,tenpowers[i]);
-	}
-return 0;
-}
-
-void sLCD_Hex_Print(uint16_t value)	
-{
-	for(int i=0;i<4;i++)
-	{
-	sLCD_Print(i,(value>>(i*4))&0xF);
-	}
+void sLCD_Fall_Message_Print(){
+	sLCD_Clear();
+	LCD->WF8B[digit_ABC[3]] = FALL_ABC[0];
+	LCD->WF8B[digit_DEFG[3]] = FALL_DEFG[0];
+	LCD->WF8B[digit_ABC[2]] = FALL_ABC[1];
+	LCD->WF8B[digit_DEFG[2]] = FALL_DEFG[1];
+	LCD->WF8B[digit_ABC[1]] = FALL_ABC[2];
+	LCD->WF8B[digit_DEFG[1]] = FALL_DEFG[2];
+	LCD->WF8B[digit_ABC[0]] = FALL_ABC[2];
+	LCD->WF8B[digit_DEFG[0]] = FALL_DEFG[2];
 }

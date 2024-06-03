@@ -14,6 +14,4 @@ uint8_t sLCD_DotClear(uint8_t dot); //clear dots and colon
 
 void sLCD_Clear(void); //clear all LCD (also dots and colon)
 
-uint8_t sLCD_Dec_Print(uint16_t value); //print decimal number from 0 to 9999
-
-void sLCD_Hex_Print(uint16_t value); // print hexadecimal value from 0 to 0xFFFF
+void sLCD_Fall_Message_Print();
