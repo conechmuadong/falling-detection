@@ -1,6 +1,6 @@
 # KL46Z Falling Detection Wearable Device
 ## Introduction
-This repository contains source code for a project on FRDM KL46Z Board to make it a Wearable Device capable of detecting and warning if the person wearing it falls. It is our final assignment for the Introduction to Embedded Systems course at VNU-UET in the 2024 Spring Semester.
+This repository contains source code for a  bare-metal project on FRDM KL46Z Board to make it a Wearable Device capable of detecting and warning if the person wearing it falls. It is our final assignment for the Introduction to Embedded Systems course at VNU-UET in the 2024 Spring Semester.
 
 ## Author
 - Nguyen Duy Hung, 21020436, VNU-UET Computer Engineering Student, Class of 2025.
