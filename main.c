@@ -2,26 +2,22 @@
 #include "i2c.h"
 #include "timer.h"
 #include "LCD.h"
-#include "uart.h"
+#include "GPIO.h"
 #include <stdio.h>
 #include <string.h>
 
+typedef enum {
+	LCD_NORMAL,
+	LCD_CHANGE_MINUTE,
+	LCD_CHANGE_HOUR
+} LCD_Stage;
+
+LCD_Stage stage = LCD_NORMAL;
 uint8_t second;
 uint8_t minute;
 uint8_t hour;
 uint8_t dot = 0;
-uint8_t isStartMeasure = 0;
-
-int16_t accel_x, accel_y, accel_z;
-int16_t previous_accel_y;
 uint8_t isFell = 0;
-
-int16_t _abs(int16_t number){
-	if (number < 0){
-		return 0 - number;
-	}
-	return number;
-}
 
 void show_current_time(){
 	sLCD_Print(0,minute%10);
@@ -30,72 +26,26 @@ void show_current_time(){
 	sLCD_Print(3,hour/10);
 }
 
-void fall_check(){
-	//TODO: Find more accurate algorithm to detect human falling
-	if (_abs(accel_y)<=200){
-		isFell = 1;			
-	}
-}
-
 void accelerometer_init(){
 	uint8_t tmp;
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2a, 0x20);
+	
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x15, 0xB8);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x17, 0x03);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x18, 0x06);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2D, 0x04);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2E, 0x04);
+	
 	I2C_Receive(MMA8451_I2C_ADDRESS, 0x2a, &tmp);
 	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2a, tmp|0x01);
 }
 
-void accelerometer_read(){
-	uint8_t data;
-	I2C_Receive(MMA8451_I2C_ADDRESS, 0x00, &data);
-	if ((data&0xf)!=0){
-		I2C_Receive(MMA8451_I2C_ADDRESS, 0x01, &data);
-		accel_x = data << 8;
-		I2C_Receive(MMA8451_I2C_ADDRESS, 0x02, &data);
-		accel_x |= data;
-		accel_x >>=2;
-		
-		if(accel_x & (1u<<13)){
-			accel_x |= (1u<<15)|(1u<<14);
-		}
-		
-		I2C_Receive(MMA8451_I2C_ADDRESS, 0x03, &data);
-		
-		accel_y = data << 8;
-		I2C_Receive(MMA8451_I2C_ADDRESS, 0x04, &data);
-		
-		accel_y |= data;
-		accel_y >>=2;
-	
-		
-		if(accel_y & (1u<<13)){
-			accel_y |= (1u<<15)|(1u<<14);
-		}
-		
-		I2C_Receive(MMA8451_I2C_ADDRESS, 0x05, &data);
-		
-		accel_z = data << 8;
-		I2C_Receive(MMA8451_I2C_ADDRESS, 0x06, &data);
-		
-		accel_z |= data;
-		accel_z >>=2;
-		
-		if(accel_z & (1u<<13)){
-			accel_z |= (1u<<15)|(1u<<14);
-		}
-		
-	}
-}
-
-void send_data(){
-	char buffer[64];
-	sprintf(buffer, "\r\n %d   %d   %d", accel_x, accel_y, accel_z);
-	TransferMsg(buffer, strlen(buffer));
-}
-
-
 int main(){
 	I2C_Init();
 	
-	InitUART();
+	Init_Button();
+	Init_FreeFall_IRQ_Input();
+	//InitUART();
 	//for (int i = 0; i<10000; i++);
 	
 	accelerometer_init();
@@ -109,14 +59,11 @@ int main(){
 			show_current_time();
 			while(isFell){
 				sLCD_Fall_Message_Print();
-				for (int i = 0; i<30000; i++);
+				for (int i = 0; i<3000000; i++);
 				sLCD_Clear();
-				for (int i = 0; i<30000; i++);
+				for (int i = 0; i<3000000; i++);
 				//TODO: Add more Warning Function
 			}
-			accelerometer_read();
-			fall_check();
-			send_data();
 	}
 }
 void PIT_IRQHandler(){
@@ -131,7 +78,6 @@ void PIT_IRQHandler(){
 			second = 0;
 		}
 		PIT->CHANNEL[0].TFLG |= 1;
-		isFell = 0;
 	}		
 	else if (PIT->CHANNEL[1].TFLG & (uint32_t)1u){
 		if (dot == 1){
@@ -142,7 +88,53 @@ void PIT_IRQHandler(){
 			sLCD_DotClear(2);
 			dot = 1;
 		}
-		isStartMeasure = 1;
 		PIT->CHANNEL[1].TFLG |= 1;
+	}
+}
+
+void PORTC_PORTD_IRQHandler(void){
+	if (PORTC->PCR[3] & PORT_PCR_ISF_MASK){
+		if (isFell == 1){
+			isFell = 0;
+			return;
+		}
+		switch(stage){
+			case LCD_NORMAL:
+				stage = LCD_CHANGE_MINUTE;
+				break;
+			case LCD_CHANGE_MINUTE:
+				stage = LCD_CHANGE_HOUR;
+				break;
+			case LCD_CHANGE_HOUR:
+				stage = LCD_NORMAL;
+				break;
+		}
+		PORTC->PCR[3]|=PORT_PCR_ISF_MASK;
+	}
+	else if (PORTC->PCR[12] & PORT_PCR_ISF_MASK){
+		switch (stage){
+			case LCD_NORMAL:
+				break;
+			case LCD_CHANGE_MINUTE:
+				if (++minute == 60){
+					if(++hour == 24){
+						hour = 0;
+					}
+					minute = 0;
+				}
+				break;
+			case LCD_CHANGE_HOUR:
+				if(++hour == 24){
+						hour = 0;
+				}
+				break;
+		}
+		PORTC->PCR[12] |= PORT_PCR_ISF_MASK;
+	}
+	else if (PORTC->PCR[5]&PORT_PCR_ISF_MASK){
+		isFell = 1;
+		uint8_t temp;
+		I2C_Receive(MMA8451_I2C_ADDRESS, 0x16, &temp);
+		PORTC->PCR[5] |= PORT_PCR_ISF_MASK;
 	}
 }

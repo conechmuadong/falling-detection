@@ -40,6 +40,34 @@ LCD.h(17): warning:  #1-D: last line of file ends without a newline
 LCD.h(17): warning:  #1295-D: Deprecated declaration sLCD_Fall_Message_Print - give arg types
   void sLCD_Fall_Message_Print();
 LCD.c: 2 warnings, 0 errors
+compiling main.c...
+i2c.h(12): warning:  #1295-D: Deprecated declaration I2C_Init - give arg types
+  void I2C_Init();
+timer.h(4): warning:  #1-D: last line of file ends without a newline
+  void PIT_IRQHandler();
+timer.h(4): warning:  #1295-D: Deprecated declaration PIT_IRQHandler - give arg types
+  void PIT_IRQHandler();
+LCD.h(17): warning:  #1-D: last line of file ends without a newline
+  void sLCD_Fall_Message_Print();
+LCD.h(17): warning:  #1295-D: Deprecated declaration sLCD_Fall_Message_Print - give arg types
+  void sLCD_Fall_Message_Print();
+GPIO.h(3): warning:  #1295-D: Deprecated declaration Init_Button - give arg types
+  void Init_Button();
+GPIO.h(5): warning:  #1295-D: Deprecated declaration Init_LED - give arg types
+  void Init_LED();
+GPIO.h(7): warning:  #1295-D: Deprecated declaration setGreenLED - give arg types
+  void setGreenLED();
+GPIO.h(9): warning:  #1295-D: Deprecated declaration setRedLED - give arg types
+  void setRedLED();
+GPIO.h(11): warning:  #1295-D: Deprecated declaration TurnOffLED - give arg types
+  void TurnOffLED();
+GPIO.h(13): warning:  #1-D: last line of file ends without a newline
+  void Init_FreeFall_IRQ_Input();
+GPIO.h(13): warning:  #1295-D: Deprecated declaration Init_FreeFall_IRQ_Input - give arg types
+  void Init_FreeFall_IRQ_Input();
+main.c(140): warning:  #1-D: last line of file ends without a newline
+  }
+main.c: 13 warnings, 0 errors
 compiling timer.c...
 timer.h(4): warning:  #1-D: last line of file ends without a newline
   void PIT_IRQHandler();
@@ -61,41 +89,35 @@ GPIO.h(7): warning:  #1295-D: Deprecated declaration setGreenLED - give arg type
   void setGreenLED();
 GPIO.h(9): warning:  #1295-D: Deprecated declaration setRedLED - give arg types
   void setRedLED();
-GPIO.h(11): warning:  #1-D: last line of file ends without a newline
-  void TurnOffLED();
 GPIO.h(11): warning:  #1295-D: Deprecated declaration TurnOffLED - give arg types
   void TurnOffLED();
-GPIO.c(21): warning:  #1-D: last line of file ends without a newline
+GPIO.h(13): warning:  #1-D: last line of file ends without a newline
+  void Init_FreeFall_IRQ_Input();
+GPIO.h(13): warning:  #1295-D: Deprecated declaration Init_FreeFall_IRQ_Input - give arg types
+  void Init_FreeFall_IRQ_Input();
+GPIO.c(19): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_ClearPendingIRQ(31);
+GPIO.c(20): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_EnableIRQ(31);
+GPIO.c(29): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_ClearPendingIRQ(31);
+GPIO.c(30): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_EnableIRQ(31);
+GPIO.c(47): warning:  #1-D: last line of file ends without a newline
   }
-GPIO.c: 7 warnings, 0 errors
+GPIO.c: 12 warnings, 0 errors
 compiling i2c.c...
 i2c.h(12): warning:  #1295-D: Deprecated declaration I2C_Init - give arg types
   void I2C_Init();
 i2c.c: 1 warning, 0 errors
-compiling main.c...
-i2c.h(12): warning:  #1295-D: Deprecated declaration I2C_Init - give arg types
-  void I2C_Init();
-timer.h(4): warning:  #1-D: last line of file ends without a newline
-  void PIT_IRQHandler();
-timer.h(4): warning:  #1295-D: Deprecated declaration PIT_IRQHandler - give arg types
-  void PIT_IRQHandler();
-LCD.h(17): warning:  #1-D: last line of file ends without a newline
-  void sLCD_Fall_Message_Print();
-LCD.h(17): warning:  #1295-D: Deprecated declaration sLCD_Fall_Message_Print - give arg types
-  void sLCD_Fall_Message_Print();
-uart.h(3): warning:  #1295-D: Deprecated declaration InitUART - give arg types
-  void InitUART();
-main.c(146): warning:  #1-D: last line of file ends without a newline
-  }
-main.c: 7 warnings, 0 errors
 compiling system_MKL46Z4.c...
 linking...
 .\Objects\falling-detection.axf: Warning: L6914W: option ro-base ignored when using --scatter.
 .\Objects\falling-detection.axf: Warning: L6914W: option rw-base ignored when using --scatter.
 .\Objects\falling-detection.axf: Warning: L6340W: options first and last are ignored for link type of scattered
-Program Size: Code=3812 RO-data=224 RW-data=68 ZI-data=2048  
+Program Size: Code=3132 RO-data=224 RW-data=52 ZI-data=2048  
 Finished: 0 information, 3 warning and 0 error messages.
-".\Objects\falling-detection.axf" - 0 Error(s), 27 Warning(s).
+".\Objects\falling-detection.axf" - 0 Error(s), 38 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -121,8 +143,8 @@ Package Vendor: NXP
    * Component: ARM::CMSIS:CORE@5.6.0
 
    * Component: NXP::Device:Startup@1.0.0
-      Source file:   arm/startup_MKL46Z4.s
       Include file:  MKL46Z4.h
+      Source file:   arm/startup_MKL46Z4.s
       Include file:  MKL46Z4_features.h
       Include file:  fsl_device_registers.h
       Source file:   system_MKL46Z4.c
