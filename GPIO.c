@@ -2,45 +2,39 @@
 #include "GPIO.h"
 
 void Init_Button(){
-	// TODO: Add code to initialize the button switch  
-	state = 0;
-	SIM->SCGC5 |= 1<<11;
-	//Chon che do GPIO
-	PORTD->PCR[3] |= 1<<8;
-	PORTD->PCR[12] |= 1<<8;
-	//Chon input
-	PTC->PDDR &= ~((uint32_t)(1 << 3));
-	PTC->PDDR &= ~((uint32_t)(1 << 12));
-	//Pin select
-	PORTC->PCR[3] |= 1<<0;
-	PORTC->PCR[3] |= 1<<1;
+	SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
+  //Button Init
+	PORTC->PCR[12] |= PORT_PCR_MUX(0x1);
+	PORTC->PCR[12] |= PORT_PCR_PE_MASK;
+	PORTC->PCR[12] |= PORT_PCR_PS_MASK;
+	PORTC->PCR[12] |= PORT_PCR_IRQC(0xA);
+	PTC->PDDR &= ~((uint32_t)1<<12);
 	
-	PORTC->PCR[12] |= 1<<0;
-	PORTC->PCR[12] |= 1<<1;
-	//Bat interrupt pin
-	PORTC->PCR[3] |= 1<<17 | 1<<19;
-	PORTC->PCR[12] |= 1<<17 | 1<<19;
-	//Interrupt Port
-	NVIC_ClearPendingIRQ(PORTC_PORTD_IRQn);
-	NVIC_EnableIRQ(PORTC_PORTD_IRQn);
-	NVIC_SetPriority(PORTC_PORTD_IRQn,1);
-	
+	NVIC_ClearPendingIRQ(31);
+	NVIC_EnableIRQ(31);
 }
 
+//Enable PTC5 interrupt for enable fall detect
+void Init_FreeFall_IRQ(){
+	SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
+	PORTC->PCR[5] |= PORT_PCR_MUX(0x1);
+	PORTC->PCR[5] |= PORT_PCR_IRQC(0xA);
+	PTC->PDDR &= ~((uint32_t)1<<5);
+	
+	NVIC_ClearPendingIRQ(31);
+	NVIC_EnableIRQ(31);
+
 void Init_LED(){
-	// TODO: Add code to initialize the LEDs
-	//Bat clock
-	SIM->SCGC5 |= 1<<12;
-	SIM->SCGC5 |= 1<<13;
-	//Chon che do GPIO
-	PORTD->PCR[5] |= 1<<8;
-	PORTE->PCR[29] |= 1<<8;
-	//Chon output
-	PTD->PDDR |= 1<<5;
-	PTE->PDDR |= 1<<29;
-	//set1
-	PTD->PSOR |= 1<<5;
-	PTE->PSOR |= 1<<29;
+	SIM->SCGC5 |= SIM_SCGC5_PORTD_MASK;
+	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
+	
+	PORTD->PCR[5] |= PORT_PCR_MUX(0x1);
+	PORTE->PCR[29] |= PORT_PCR_MUX(0x1);
+	PTD->PDDR |= 1 << 5;
+	PTE->PDDR |= 1 << 29;
+	
+	PTD->PSOR |= 1 << 5;
+	PTE->PSOR |= 1 << 29;
 }
 
 
