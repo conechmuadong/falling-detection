@@ -29,8 +29,18 @@ void Init_FreeFall_IRQ_Input(){
 	NVIC_EnableIRQ(31);
 }
 
-void InitLED(){
+void Init_LED(){
 	// TODO: Add code to initialize the LEDs
+	SIM->SCGC5 |= SIM_SCGC5_PORTD_MASK;
+	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
+	
+	PORTD->PCR[5] |= PORT_PCR_MUX(0x1);
+	PORTE->PCR[29] |= PORT_PCR_MUX(0x1);
+	PTD->PDDR |= 1 << 5;
+	PTE->PDDR |= 1 << 29;
+	
+	PTD->PSOR |= 1 << 5;
+	PTE->PSOR |= 1 << 29;
 }
 
 void setGreenLED(){
