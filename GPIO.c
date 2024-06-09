@@ -1,6 +1,7 @@
 #include "GPIO.h"
 
 void Init_Button(){
+	//Button Init
 	SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
 	
 	PORTC->PCR[3] |= PORT_PCR_MUX(0x1);
