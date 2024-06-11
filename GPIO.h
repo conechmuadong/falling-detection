@@ -2,12 +2,14 @@
 
 extern volatile uint8_t state;
 
-void Init_Button();
+void Init_Button(void);
 
-void Init_LED();
+void Init_LED(void);
 
-void setGreenLED();
+void setGreenLED(void);
 
-void setRedLED();
+void setRedLED(void);
 
-void TurnOffLED();
+void TurnOffLED(void);
+
+void Init_FreeFall_IRQ(void);

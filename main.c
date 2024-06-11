@@ -3,13 +3,14 @@
 #include "timer.h"
 #include "LCD.h"
 #include "GPIO.h"
-#include <stdio.h>
-#include <string.h>
+#include "systick.h"
 
 typedef enum {
 	LCD_NORMAL,
+	LCD_FALL,
 	LCD_CHANGE_MINUTE,
-	LCD_CHANGE_HOUR
+	LCD_CHANGE_HOUR,
+	LCD_SYSTEM_OFF
 } LCD_Stage;
 
 LCD_Stage stage = LCD_NORMAL;
@@ -17,7 +18,9 @@ uint8_t second;
 uint8_t minute;
 uint8_t hour;
 uint8_t dot = 0;
-uint8_t isFell = 0;
+
+uint32_t redLed = 0;
+uint32_t greenLed = 0;
 
 void show_current_time(){
 	sLCD_Print(0,minute%10);
@@ -44,25 +47,29 @@ int main(){
 	I2C_Init();
 	
 	Init_Button();
-	Init_FreeFall_IRQ_Input();
-	//InitUART();
-	//for (int i = 0; i<10000; i++);
+	Init_FreeFall_IRQ();
 	
 	accelerometer_init();
 	
-	//for (int i = 0; i<10000; i++);
 	sLCD_Init();
 	Timer_Init();
+	Systick_Init();
+	
+	Init_LED();
 	show_current_time();
 	
 	while (1){
-			show_current_time();
-			while(isFell){
+			if (stage != LCD_SYSTEM_OFF){
+				show_current_time();
+			}
+			else{
+				sLCD_Clear();
+			}
+			while(stage == LCD_FALL){
 				sLCD_Fall_Message_Print();
 				for (int i = 0; i<3000000; i++);
 				sLCD_Clear();
 				for (int i = 0; i<3000000; i++);
-				//TODO: Add more Warning Function
 			}
 	}
 }
@@ -79,25 +86,23 @@ void PIT_IRQHandler(){
 		}
 		PIT->CHANNEL[0].TFLG |= 1;
 	}		
-	else if (PIT->CHANNEL[1].TFLG & (uint32_t)1u){
-		if (dot == 1){
-			sLCD_DotSet(2);
-			dot = 0;
-		}
-		else{
-			sLCD_DotClear(2);
-			dot = 1;
+	else if ((PIT->CHANNEL[1].TFLG & (uint32_t)1u)){
+		if(stage != LCD_FALL && stage != LCD_SYSTEM_OFF){
+			if (dot == 1){
+				sLCD_DotSet(2);
+				dot = 0;
+			}
+			else{
+				sLCD_DotClear(2);
+				dot = 1;
+			}	
 		}
 		PIT->CHANNEL[1].TFLG |= 1;
 	}
 }
 
 void PORTC_PORTD_IRQHandler(void){
-	if (PORTC->PCR[3] & PORT_PCR_ISF_MASK){
-		if (isFell == 1){
-			isFell = 0;
-			return;
-		}
+	if (PORTC->PCR[12] & PORT_PCR_ISF_MASK){
 		switch(stage){
 			case LCD_NORMAL:
 				stage = LCD_CHANGE_MINUTE;
@@ -108,12 +113,22 @@ void PORTC_PORTD_IRQHandler(void){
 			case LCD_CHANGE_HOUR:
 				stage = LCD_NORMAL;
 				break;
+			case LCD_SYSTEM_OFF:
+				break;
+			case LCD_FALL:
+				stage = LCD_NORMAL;
+				PTE->PDOR |= (1<<29);
+				break;
 		}
-		PORTC->PCR[3]|=PORT_PCR_ISF_MASK;
+		PORTC->PCR[12]|=PORT_PCR_ISF_MASK;
 	}
-	else if (PORTC->PCR[12] & PORT_PCR_ISF_MASK){
+	else if (PORTC->PCR[3] & PORT_PCR_ISF_MASK){
 		switch (stage){
 			case LCD_NORMAL:
+				stage = LCD_SYSTEM_OFF;
+				SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;
+				PTD->PDOR |= (1<<5);
+				sLCD_Clear();
 				break;
 			case LCD_CHANGE_MINUTE:
 				if (++minute == 60){
@@ -128,13 +143,44 @@ void PORTC_PORTD_IRQHandler(void){
 						hour = 0;
 				}
 				break;
+			case LCD_SYSTEM_OFF:
+				SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
+				stage = LCD_NORMAL;
+				break;
+			case LCD_FALL:
+				break;
 		}
-		PORTC->PCR[12] |= PORT_PCR_ISF_MASK;
+		PORTC->PCR[3] |= PORT_PCR_ISF_MASK;
 	}
 	else if (PORTC->PCR[5]&PORT_PCR_ISF_MASK){
-		isFell = 1;
+		stage = LCD_FALL;
 		uint8_t temp;
 		I2C_Receive(MMA8451_I2C_ADDRESS, 0x16, &temp);
 		PORTC->PCR[5] |= PORT_PCR_ISF_MASK;
+	}
+}
+void SysTick_Handler(void)
+{
+	if (stage!=LCD_FALL){
+		greenLed++;
+		if (greenLed == 501)
+		{
+			if (PTD->PDOR & (1<<5)){
+				PTD->PDOR &= ~((uint32_t)(1<<5));
+			}
+			else{
+				PTD->PTOR |= 1<<5;
+			}
+			greenLed = 0;
+		}
+	}
+	if (stage == LCD_FALL)
+	{
+		redLed++;
+		if (redLed == 250)
+		{
+			PTE->PTOR |= 1<<29;
+			redLed = 0;
+		}
 	}
 }

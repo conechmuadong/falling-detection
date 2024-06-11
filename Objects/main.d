@@ -10,5 +10,4 @@
 .\objects\main.o: timer.h
 .\objects\main.o: LCD.h
 .\objects\main.o: GPIO.h
-.\objects\main.o: E:\KeilVision\ARM\ARM_compiler_5.06v7\Bin\..\include\stdio.h
-.\objects\main.o: E:\KeilVision\ARM\ARM_compiler_5.06v7\Bin\..\include\string.h
+.\objects\main.o: systick.h

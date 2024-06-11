@@ -22,92 +22,68 @@ Dialog DLL:      TARMCM1.DLL V1.14.6.0
  
 <h2>Project:</h2>
 E:\Courses\23-24-II\Embedded\Assignment\falling-detection\falling-detection.uvprojx
-Project File Date:  06/03/2024
+Project File Date:  06/09/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\KeilVision\ARM\ARM_compiler_5.06v7\Bin'
 Rebuild target 'Target 1'
 assembling startup_MKL46Z4.s...
-compiling uart.c...
-uart.h(3): warning:  #1295-D: Deprecated declaration InitUART - give arg types
-  void InitUART();
-uart.c(60): warning:  #1-D: last line of file ends without a newline
-  }
-uart.c: 2 warnings, 0 errors
 compiling LCD.c...
-LCD.h(17): warning:  #1-D: last line of file ends without a newline
+LCD.h(56): warning:  #1-D: last line of file ends without a newline
   void sLCD_Fall_Message_Print();
-LCD.h(17): warning:  #1295-D: Deprecated declaration sLCD_Fall_Message_Print - give arg types
+LCD.h(56): warning:  #1295-D: Deprecated declaration sLCD_Fall_Message_Print - give arg types
   void sLCD_Fall_Message_Print();
 LCD.c: 2 warnings, 0 errors
 compiling main.c...
-i2c.h(12): warning:  #1295-D: Deprecated declaration I2C_Init - give arg types
+i2c.h(28): warning:  #1295-D: Deprecated declaration I2C_Init - give arg types
   void I2C_Init();
-timer.h(4): warning:  #1-D: last line of file ends without a newline
-  void PIT_IRQHandler();
-timer.h(4): warning:  #1295-D: Deprecated declaration PIT_IRQHandler - give arg types
-  void PIT_IRQHandler();
-LCD.h(17): warning:  #1-D: last line of file ends without a newline
+timer.h(17): warning:  #1-D: last line of file ends without a newline
+  void Timer_Init(void);
+LCD.h(56): warning:  #1-D: last line of file ends without a newline
   void sLCD_Fall_Message_Print();
-LCD.h(17): warning:  #1295-D: Deprecated declaration sLCD_Fall_Message_Print - give arg types
+LCD.h(56): warning:  #1295-D: Deprecated declaration sLCD_Fall_Message_Print - give arg types
   void sLCD_Fall_Message_Print();
-GPIO.h(3): warning:  #1295-D: Deprecated declaration Init_Button - give arg types
-  void Init_Button();
-GPIO.h(5): warning:  #1295-D: Deprecated declaration Init_LED - give arg types
-  void Init_LED();
-GPIO.h(7): warning:  #1295-D: Deprecated declaration setGreenLED - give arg types
-  void setGreenLED();
-GPIO.h(9): warning:  #1295-D: Deprecated declaration setRedLED - give arg types
-  void setRedLED();
-GPIO.h(11): warning:  #1295-D: Deprecated declaration TurnOffLED - give arg types
-  void TurnOffLED();
-GPIO.h(13): warning:  #1-D: last line of file ends without a newline
-  void Init_FreeFall_IRQ_Input();
-GPIO.h(13): warning:  #1295-D: Deprecated declaration Init_FreeFall_IRQ_Input - give arg types
-  void Init_FreeFall_IRQ_Input();
-main.c(140): warning:  #1-D: last line of file ends without a newline
+GPIO.h(15): warning:  #1-D: last line of file ends without a newline
+  void Init_FreeFall_IRQ(void);
+systick.h(3): warning:  #1295-D: Deprecated declaration Systick_Init - give arg types
+  void Systick_Init();
+main.c(186): warning:  #1-D: last line of file ends without a newline
   }
-main.c: 13 warnings, 0 errors
+main.c: 7 warnings, 0 errors
+compiling systick.c...
+systick.h(3): warning:  #1295-D: Deprecated declaration Systick_Init - give arg types
+  void Systick_Init();
+gpio.h(15): warning:  #1-D: last line of file ends without a newline
+  void Init_FreeFall_IRQ(void);
+systick.c(17): warning:  #1-D: last line of file ends without a newline
+  }
+systick.c: 3 warnings, 0 errors
 compiling timer.c...
-timer.h(4): warning:  #1-D: last line of file ends without a newline
-  void PIT_IRQHandler();
-timer.h(4): warning:  #1295-D: Deprecated declaration PIT_IRQHandler - give arg types
-  void PIT_IRQHandler();
-timer.c(10): warning:  #188-D: enumerated type mixed with another type
+timer.h(17): warning:  #1-D: last line of file ends without a newline
+  void Timer_Init(void);
+timer.c(37): warning:  #188-D: enumerated type mixed with another type
   	NVIC_SetPriority(22,2);
-timer.c(11): warning:  #188-D: enumerated type mixed with another type
+timer.c(38): warning:  #188-D: enumerated type mixed with another type
   	NVIC_EnableIRQ(22);
-timer.c(20): warning:  #1-D: last line of file ends without a newline
+timer.c(39): warning:  #1-D: last line of file ends without a newline
   }
-timer.c: 5 warnings, 0 errors
+timer.c: 4 warnings, 0 errors
 compiling GPIO.c...
-GPIO.h(3): warning:  #1295-D: Deprecated declaration Init_Button - give arg types
-  void Init_Button();
-GPIO.h(5): warning:  #1295-D: Deprecated declaration Init_LED - give arg types
-  void Init_LED();
-GPIO.h(7): warning:  #1295-D: Deprecated declaration setGreenLED - give arg types
-  void setGreenLED();
-GPIO.h(9): warning:  #1295-D: Deprecated declaration setRedLED - give arg types
-  void setRedLED();
-GPIO.h(11): warning:  #1295-D: Deprecated declaration TurnOffLED - give arg types
-  void TurnOffLED();
-GPIO.h(13): warning:  #1-D: last line of file ends without a newline
-  void Init_FreeFall_IRQ_Input();
-GPIO.h(13): warning:  #1295-D: Deprecated declaration Init_FreeFall_IRQ_Input - give arg types
-  void Init_FreeFall_IRQ_Input();
-GPIO.c(19): warning:  #188-D: enumerated type mixed with another type
+GPIO.h(15): warning:  #1-D: last line of file ends without a newline
+  void Init_FreeFall_IRQ(void);
+GPIO.c(18): warning:  #188-D: enumerated type mixed with another type
   	NVIC_ClearPendingIRQ(31);
-GPIO.c(20): warning:  #188-D: enumerated type mixed with another type
+GPIO.c(19): warning:  #188-D: enumerated type mixed with another type
   	NVIC_EnableIRQ(31);
 GPIO.c(29): warning:  #188-D: enumerated type mixed with another type
   	NVIC_ClearPendingIRQ(31);
 GPIO.c(30): warning:  #188-D: enumerated type mixed with another type
   	NVIC_EnableIRQ(31);
-GPIO.c(47): warning:  #1-D: last line of file ends without a newline
+GPIO.c(43): warning:  #1-D: last line of file ends without a newline
   }
-GPIO.c: 12 warnings, 0 errors
+GPIO.c: 6 warnings, 0 errors
 compiling i2c.c...
-i2c.h(12): warning:  #1295-D: Deprecated declaration I2C_Init - give arg types
+i2c.h(28): warning:  #1295-D: Deprecated declaration I2C_Init - give arg types
   void I2C_Init();
 i2c.c: 1 warning, 0 errors
 compiling system_MKL46Z4.c...
@@ -115,9 +91,9 @@ linking...
 .\Objects\falling-detection.axf: Warning: L6914W: option ro-base ignored when using --scatter.
 .\Objects\falling-detection.axf: Warning: L6914W: option rw-base ignored when using --scatter.
 .\Objects\falling-detection.axf: Warning: L6340W: options first and last are ignored for link type of scattered
-Program Size: Code=3132 RO-data=224 RW-data=52 ZI-data=2048  
+Program Size: Code=3596 RO-data=224 RW-data=56 ZI-data=2048  
 Finished: 0 information, 3 warning and 0 error messages.
-".\Objects\falling-detection.axf" - 0 Error(s), 38 Warning(s).
+".\Objects\falling-detection.axf" - 0 Error(s), 26 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -143,12 +119,12 @@ Package Vendor: NXP
    * Component: ARM::CMSIS:CORE@5.6.0
 
    * Component: NXP::Device:Startup@1.0.0
-      Include file:  MKL46Z4.h
       Source file:   arm/startup_MKL46Z4.s
-      Include file:  MKL46Z4_features.h
       Include file:  fsl_device_registers.h
-      Source file:   system_MKL46Z4.c
+      Include file:  MKL46Z4.h
+      Include file:  MKL46Z4_features.h
       Include file:  system_MKL46Z4.h
+      Source file:   system_MKL46Z4.c
 Build Time Elapsed:  00:00:01
 </pre>
 </body>
