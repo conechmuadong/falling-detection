@@ -1,7 +1,14 @@
-#include "i2c.h"
+/**
+ * @file i2c.c
+ * @author Nguyen Duy Hung, Vu Thu Huyen
+ * @date June 6th 2024
+ * @brief I2C driver
+ * This file contains the definition of functions for I2C communication.
+*/
+include "i2c.h"
 
 void I2C_Init(){
-	// Choose Clock divider for I2C, 48MHz/2 = 24MHz
+	// Choose Clock divider for I2C, 24MHz/3 = 8MHz
 	SIM->CLKDIV1 |= (1<<17)|(1<<16);
 	// Enable I2C0 clock
 	SIM->SCGC4 |= SIM_SCGC4_I2C0_MASK;
@@ -63,8 +70,10 @@ error_code I2C_Receive(uint8_t address, uint8_t reg, uint8_t * data){
 
 	// Send address
 	I2C0->D = address << 1;
+	
 	while((I2C0->S & I2C_S_IICIF_MASK)==0); //Wait for interrupt flag
 	I2C0->S |= I2C_S_IICIF_MASK;
+	
 	if (!(I2C0->S & I2C_S_RXAK_MASK)){
 	}
 	// Send register address

@@ -45,7 +45,7 @@ uint32_t sLCD_Init(void)
 	LCD_GCR_LADJ(0x03) | // Choose slowest clock source for charge pump
 	LCD_GCR_VSUPPLY_MASK | // Choose the voltage supply for the LCD
 	LCD_GCR_ALTDIV(0x00) | // Keep original clock source frequency
-	LCD_GCR_SOURCE_MASK | // Choose the clock source 2 for the LCD
+	LCD_GCR_SOURCE_MASK | // Choose the alternative clock source for the LCD
 	LCD_GCR_LCLK(0x01) | // Prescaler for LCD clock
 	LCD_GCR_DUTY(0x03); // Choose 1/4 duty cycle for the LCD, 4 backplanes for 32 segments
 	

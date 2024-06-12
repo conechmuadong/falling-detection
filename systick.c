@@ -7,11 +7,11 @@ void Systick_Init()
 	//Enable SysTick Interrupt
 	SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
 	
-	//Chon nguon Clock
+	//Select Clock Source for SysTick
 	SysTick->CTRL |= SysTick_CTRL_CLKSOURCE_Msk;
 	
-	//
+	//Enable SysTick Timer
 	SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
-	//Set LOAD
+	//Set LOAD value
 	SysTick->LOAD = SystemCoreClock/1000 - 1;
 }

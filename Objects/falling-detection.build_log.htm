@@ -28,6 +28,38 @@ Project File Date:  06/09/2024
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\KeilVision\ARM\ARM_compiler_5.06v7\Bin'
 Rebuild target 'Target 1'
 assembling startup_MKL46Z4.s...
+compiling systick.c...
+systick.h(3): warning:  #1295-D: Deprecated declaration Systick_Init - give arg types
+  void Systick_Init();
+gpio.h(15): warning:  #1-D: last line of file ends without a newline
+  void Init_FreeFall_IRQ(void);
+systick.c(17): warning:  #1-D: last line of file ends without a newline
+  }
+systick.c: 3 warnings, 0 errors
+compiling GPIO.c...
+GPIO.h(15): warning:  #1-D: last line of file ends without a newline
+  void Init_FreeFall_IRQ(void);
+GPIO.c(18): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_ClearPendingIRQ(31);
+GPIO.c(19): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_EnableIRQ(31);
+GPIO.c(29): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_ClearPendingIRQ(31);
+GPIO.c(30): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_EnableIRQ(31);
+GPIO.c(43): warning:  #1-D: last line of file ends without a newline
+  }
+GPIO.c: 6 warnings, 0 errors
+compiling timer.c...
+timer.h(17): warning:  #1-D: last line of file ends without a newline
+  void Timer_Init(void);
+timer.c(37): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_SetPriority(22,2);
+timer.c(38): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_EnableIRQ(22);
+timer.c(39): warning:  #1-D: last line of file ends without a newline
+  }
+timer.c: 4 warnings, 0 errors
 compiling LCD.c...
 LCD.h(56): warning:  #1-D: last line of file ends without a newline
   void sLCD_Fall_Message_Print();
@@ -50,38 +82,6 @@ systick.h(3): warning:  #1295-D: Deprecated declaration Systick_Init - give arg 
 main.c(186): warning:  #1-D: last line of file ends without a newline
   }
 main.c: 7 warnings, 0 errors
-compiling systick.c...
-systick.h(3): warning:  #1295-D: Deprecated declaration Systick_Init - give arg types
-  void Systick_Init();
-gpio.h(15): warning:  #1-D: last line of file ends without a newline
-  void Init_FreeFall_IRQ(void);
-systick.c(17): warning:  #1-D: last line of file ends without a newline
-  }
-systick.c: 3 warnings, 0 errors
-compiling timer.c...
-timer.h(17): warning:  #1-D: last line of file ends without a newline
-  void Timer_Init(void);
-timer.c(37): warning:  #188-D: enumerated type mixed with another type
-  	NVIC_SetPriority(22,2);
-timer.c(38): warning:  #188-D: enumerated type mixed with another type
-  	NVIC_EnableIRQ(22);
-timer.c(39): warning:  #1-D: last line of file ends without a newline
-  }
-timer.c: 4 warnings, 0 errors
-compiling GPIO.c...
-GPIO.h(15): warning:  #1-D: last line of file ends without a newline
-  void Init_FreeFall_IRQ(void);
-GPIO.c(18): warning:  #188-D: enumerated type mixed with another type
-  	NVIC_ClearPendingIRQ(31);
-GPIO.c(19): warning:  #188-D: enumerated type mixed with another type
-  	NVIC_EnableIRQ(31);
-GPIO.c(29): warning:  #188-D: enumerated type mixed with another type
-  	NVIC_ClearPendingIRQ(31);
-GPIO.c(30): warning:  #188-D: enumerated type mixed with another type
-  	NVIC_EnableIRQ(31);
-GPIO.c(43): warning:  #1-D: last line of file ends without a newline
-  }
-GPIO.c: 6 warnings, 0 errors
 compiling i2c.c...
 i2c.h(28): warning:  #1295-D: Deprecated declaration I2C_Init - give arg types
   void I2C_Init();
@@ -119,10 +119,10 @@ Package Vendor: NXP
    * Component: ARM::CMSIS:CORE@5.6.0
 
    * Component: NXP::Device:Startup@1.0.0
-      Source file:   arm/startup_MKL46Z4.s
-      Include file:  fsl_device_registers.h
       Include file:  MKL46Z4.h
+      Source file:   arm/startup_MKL46Z4.s
       Include file:  MKL46Z4_features.h
+      Include file:  fsl_device_registers.h
       Include file:  system_MKL46Z4.h
       Source file:   system_MKL46Z4.c
 Build Time Elapsed:  00:00:01

@@ -1,6 +1,6 @@
 Dependencies for Project 'falling-detection', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARM_compiler_5.06v7
-F (.\main.c)(0x6667B6C8)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x6668A19C)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\RTE\Device\MKL46Z256VMC4\MKL46Z4.h)(0x65D6B74C)
 I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F58EE)
 I (E:\KeilVision\ARM\ARM_compiler_5.06v7\include\stdint.h)(0x5E8E4AD2)
@@ -13,7 +13,7 @@ I (timer.h)(0x665F4F7B)
 I (LCD.h)(0x665F476C)
 I (GPIO.h)(0x6667A3C5)
 I (systick.h)(0x66656ABB)
-F (.\i2c.c)(0x665F460B)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\i2c.o --omf_browse .\objects\i2c.crf --depend .\objects\i2c.d)
+F (.\i2c.c)(0x6668B9D5)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VMC4-I.\RTE\_Target_1-IE:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\ARM\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VMC4 -D_RTE_-o .\objects\i2c.o --omf_browse .\objects\i2c.crf --depend .\objects\i2c.d)
 I (i2c.h)(0x665F43F0)
 I (.\RTE\Device\MKL46Z256VMC4\MKL46Z4.h)(0x65D6B74C)
 I (E:\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F58EE)

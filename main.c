@@ -1,3 +1,15 @@
+/**
+ * @file main.c
+ * @brief Main source file
+ * This file contains the main code for the project.
+ * The project is a digital clock that can be set the time by pressing the button.
+ * The clock will display the time in the format of HH:MM.
+ * The clock will also have a fall detection feature, when user wearing this device
+ * falls, this will display an alert message on sLCD.
+ * @author Nguyen Duy Hung, Vu Thu Huyen
+ * @date June 10th 2024
+*/
+
 #include "MKL46Z4.h"
 #include "i2c.h"
 #include "timer.h"
@@ -22,26 +34,21 @@ uint8_t dot = 0;
 uint32_t redLed = 0;
 uint32_t greenLed = 0;
 
-void show_current_time(){
-	sLCD_Print(0,minute%10);
-	sLCD_Print(1,minute/10);
-	sLCD_Print(2,hour%10);
-	sLCD_Print(3,hour/10);
-}
+/**
+ * @brief Show current time on sLCD
+ * This function shows the current time on sLCD in the format of HH:MM.
+ * @param void
+ * @return none
+*/
+void show_current_time();
 
-void accelerometer_init(){
-	uint8_t tmp;
-	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2a, 0x20);
-	
-	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x15, 0xB8);
-	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x17, 0x03);
-	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x18, 0x06);
-	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2D, 0x04);
-	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2E, 0x04);
-	
-	I2C_Receive(MMA8451_I2C_ADDRESS, 0x2a, &tmp);
-	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2a, tmp|0x01);
-}
+/**
+ * @brief Initialize accelerometer
+ * This function initializes the accelerometer MMA8451Q.
+ * @param void
+ * @return none
+*/
+void accelerometer_init();
 
 int main(){
 	I2C_Init();
@@ -145,6 +152,7 @@ void PORTC_PORTD_IRQHandler(void){
 				break;
 			case LCD_SYSTEM_OFF:
 				SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
+				PTD->PDOR &= ~(1<<5);
 				stage = LCD_NORMAL;
 				break;
 			case LCD_FALL:
@@ -153,7 +161,9 @@ void PORTC_PORTD_IRQHandler(void){
 		PORTC->PCR[3] |= PORT_PCR_ISF_MASK;
 	}
 	else if (PORTC->PCR[5]&PORT_PCR_ISF_MASK){
-		stage = LCD_FALL;
+		if (stage != LCD_SYSTEM_OFF){
+			stage = LCD_FALL;
+		}
 		uint8_t temp;
 		I2C_Receive(MMA8451_I2C_ADDRESS, 0x16, &temp);
 		PORTC->PCR[5] |= PORT_PCR_ISF_MASK;
@@ -163,14 +173,9 @@ void SysTick_Handler(void)
 {
 	if (stage!=LCD_FALL){
 		greenLed++;
-		if (greenLed == 501)
+		if (greenLed == 500)
 		{
-			if (PTD->PDOR & (1<<5)){
-				PTD->PDOR &= ~((uint32_t)(1<<5));
-			}
-			else{
-				PTD->PTOR |= 1<<5;
-			}
+			PTD->PTOR |= 1<<5;
 			greenLed = 0;
 		}
 	}
@@ -183,4 +188,25 @@ void SysTick_Handler(void)
 			redLed = 0;
 		}
 	}
+}
+
+void accelerometer_init(){
+	uint8_t tmp;
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2a, 0x20);
+	
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x15, 0xB8);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x17, 0x03);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x18, 0x06);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2D, 0x04);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2E, 0x04);
+	
+	I2C_Receive(MMA8451_I2C_ADDRESS, 0x2a, &tmp);
+	I2C_Transmit(MMA8451_I2C_ADDRESS, 0x2a, tmp|0x01);
+}
+
+void show_current_time(){
+	sLCD_Print(0,minute%10);
+	sLCD_Print(1,minute/10);
+	sLCD_Print(2,hour%10);
+	sLCD_Print(3,hour/10);
 }

@@ -19,7 +19,6 @@ void Init_Button(void){
 	NVIC_EnableIRQ(31);
 }
 
-//Enable PTC5 interrupt for enable fall detect
 void Init_FreeFall_IRQ(void){
 	SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
 	PORTC->PCR[5] |= PORT_PCR_MUX(0x1);

@@ -1,6 +1,6 @@
 /**
  * @file i2c.h
- * @author Duy Hung Nguyen
+ * @author Nguyen Duy Hung, Vu Thu Huyen
  * @date June 6th 2024
  * @brief I2C driver	
  * This file contains the declaration of functions for I2C communication.
