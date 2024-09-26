@@ -5,7 +5,7 @@
  * @brief I2C driver
  * This file contains the definition of functions for I2C communication.
 */
-include "i2c.h"
+#include "i2c.h"
 
 void I2C_Init(){
 	// Choose Clock divider for I2C, 24MHz/3 = 8MHz

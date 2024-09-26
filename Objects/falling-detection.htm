@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\falling-detection.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\falling-detection.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Jun 12 03:57:09 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Jun 15 08:20:56 2024
 <BR><P>
 <H3>Maximum Stack Usage =         20 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -446,7 +446,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mkl46z4.o(RESET)
 </UL>
-<P><STRONG><a name="[2a]"></a>PORTC_PORTD_IRQHandler</STRONG> (Thumb, 326 bytes, Stack size 8 bytes, main.o(i.PORTC_PORTD_IRQHandler))
+<P><STRONG><a name="[2a]"></a>PORTC_PORTD_IRQHandler</STRONG> (Thumb, 350 bytes, Stack size 8 bytes, main.o(i.PORTC_PORTD_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = PORTC_PORTD_IRQHandler &rArr; I2C_Receive
 </UL>
 <BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sLCD_Clear
@@ -455,7 +455,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mkl46z4.o(RESET)
 </UL>
-<P><STRONG><a name="[a]"></a>SysTick_Handler</STRONG> (Thumb, 124 bytes, Stack size 0 bytes, main.o(i.SysTick_Handler))
+<P><STRONG><a name="[a]"></a>SysTick_Handler</STRONG> (Thumb, 102 bytes, Stack size 0 bytes, main.o(i.SysTick_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mkl46z4.o(RESET)
 </UL>
 <P><STRONG><a name="[2b]"></a>SystemInit</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, system_mkl46z4.o(i.SystemInit))
@@ -500,7 +500,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[43]"></a>main</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[43]"></a>main</STRONG> (Thumb, 142 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = main &rArr; show_current_time &rArr; sLCD_Print
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sLCD_Init

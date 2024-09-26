@@ -71,8 +71,11 @@ int main(){
 			}
 			else{
 				sLCD_Clear();
+				PTD->PDOR|= 1<<5;
+				PTE->PDOR|= 1<<29;
 			}
 			while(stage == LCD_FALL){
+				PTD->PDOR |= 1<<5;
 				sLCD_Fall_Message_Print();
 				for (int i = 0; i<3000000; i++);
 				sLCD_Clear();
@@ -96,11 +99,11 @@ void PIT_IRQHandler(){
 	else if ((PIT->CHANNEL[1].TFLG & (uint32_t)1u)){
 		if(stage != LCD_FALL && stage != LCD_SYSTEM_OFF){
 			if (dot == 1){
-				sLCD_DotSet(2);
+				sLCD_DotSet(0);
 				dot = 0;
 			}
 			else{
-				sLCD_DotClear(2);
+				sLCD_DotClear(0);
 				dot = 1;
 			}	
 		}
@@ -173,7 +176,7 @@ void SysTick_Handler(void)
 {
 	if (stage!=LCD_FALL){
 		greenLed++;
-		if (greenLed == 500)
+		if (greenLed == 1001)
 		{
 			PTD->PTOR |= 1<<5;
 			greenLed = 0;
@@ -182,7 +185,7 @@ void SysTick_Handler(void)
 	if (stage == LCD_FALL)
 	{
 		redLed++;
-		if (redLed == 250)
+		if (redLed == 501)
 		{
 			PTE->PTOR |= 1<<29;
 			redLed = 0;
